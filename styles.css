@@ -13,19 +13,29 @@ body{
     align-items: flex-start;
     flex-wrap: wrap;
 }
-#x{
+#black {
+    background-color: black;
+    width: 100px;
+    height: 100px;
+}
+#white{
+    background-color: white;
+    width: 100px;
+    height: 100px;
+}
+/* #x{
     border: 1px solid aqua;
-    width: 98px;
-    height: 98px;
+    width: 100px;
+    height: 100px;
 
 }
 #o{
     border: 1px solid goldenrod;
-    width: 98px;
-    height: 98px;
+    width: 100px;
+    height: 100px;
 }
 #w{
     border: 1px solid orangered;
     width: 98px;
     height: 98px;
-}
+} */

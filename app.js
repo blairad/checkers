@@ -18,11 +18,22 @@ createBoard();
 function renderBoard(){
     let boardContainer = document.getElementById('board')
     
-    for(element of board){
-        let gridSquare = document.createElement('div')
-        gridSquare.id = element
-        console.log(gridSquare)
-        boardContainer.appendChild(gridSquare);
+    for(i = 0; i < 8; i++){
+        for(j = 0; j < 8; j++){
+            if((i + j) % 2 === 0){
+                let white = document.createElement('div');
+                white.id = "white"
+                console.log('true')
+                boardContainer.appendChild(white);
+            } else{
+                let black = document.createElement('div');
+                black.id = "black"
+                
+                boardContainer.appendChild(black);
+            }
+        
+    }
+       
     }
 
 }

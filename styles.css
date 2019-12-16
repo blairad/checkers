@@ -19,9 +19,18 @@ body{
     height: 100px;
 }
 #white{
+    display: flex;
     background-color: white;
     width: 100px;
     height: 100px;
+}
+#circle{
+    background-color: red;
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    
 }
 /* #x{
     border: 1px solid aqua;

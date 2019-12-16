@@ -24,6 +24,9 @@ function renderBoard(){
                 let white = document.createElement('div');
                 white.id = "white"
                 console.log('true')
+                let circle = document.createElement('div')
+                circle.id ="circle";
+                white.appendChild(circle)
                 boardContainer.appendChild(white);
             } else{
                 let black = document.createElement('div');

@@ -37,12 +37,12 @@ function renderBoard() {
 }
 
 function renderPieces() {
-    for (piece of board) {
-        if (piece == 'x') {
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] == 'x') {
             let whiteCircle = document.createElement('div');
             whiteCircle.id = "whiteCircle";
             piecesContainer.appendChild(whiteCircle);
-        } else if (piece == 'w') {
+        } else if (board[i] == 'w') {
             let blackCircle = document.createElement('div');
             blackCircle.id = "blackCircle";
             piecesContainer.appendChild(blackCircle);

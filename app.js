@@ -79,6 +79,7 @@ piecesContainer.addEventListener('click', event => {
     if (lastSelectedPositions.length == 2) {
         swapPositions(lastSelectedPositions);
         updatePieces();
+        lastSelectedPositions = [];
     }
     console.log('position', lastSelectedPositions);
 });

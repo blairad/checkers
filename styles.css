@@ -3,57 +3,49 @@ body{
     display: row;
     height: 100%;
     width: 100%;
+    margin: auto 0;
 }
 
 #board{
-    width: 800px;
-    height:800px;
+    width: 700px;
+    height:700px;
     border: 2px solid black;
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
 }
 #pieces-container{
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 800px;
-    height:800px;
-    /* background-color: yellow; */
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    width: 700px;
+    height:700px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
 }
 
 #black {
     background-color: black;
-    width: 100px;
-    height: 100px;
 }
 #white{
     display: flex;
     background-color: white;
-    width: 100px;
-    height: 100px;
 }
 
 .whiteCircle{
     background-color: red ;
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    margin: 5px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
 }
 
 .blackCircle{
     background-color: green;
     border-radius: 50%;
-    width: 90px;
-    height: 90px;
-    margin: 5px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
 }
 
-.blank {
-    width: 100px;
-    height: 100px;
-}

@@ -67,8 +67,6 @@ function swapPositions(positionArray) {
     board[positionArray[0]] = pos2;
 
     console.log('last clicked pos', board[positionArray[1]]);
-    console.log(board);
-    renderPieces();
 }
 
 piecesContainer.addEventListener('click', event => {
@@ -80,10 +78,15 @@ piecesContainer.addEventListener('click', event => {
     }
     if (lastSelectedPositions.length == 2) {
         swapPositions(lastSelectedPositions);
+        updatePieces();
     }
     console.log('position', lastSelectedPositions);
 });
 
+function updatePieces() {
+    piecesContainer.innerHTML = '';
+    renderPieces();
+}
 
 // addPosition();
 renderBoard();

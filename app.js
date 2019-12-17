@@ -1,6 +1,6 @@
 const boardContainer = document.getElementById('board');
 const piecesContainer = document.getElementById('pieces-container');
-let lastSelectedPositions = [0,0];
+let lastSelectedPositions = [];
 
 let board = [];
 
@@ -60,13 +60,32 @@ function renderPieces() {
 
 function addPosition(){
     piecesContainer.addEventListener('click', event => {
-        lastSelectedPositions.shift();
-        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+        if (lastSelectedPositions.length < 2) {
+            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+        } else {
+            lastSelectedPositions.shift();
+            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+        }
+        if (lastSelectedPositions.length == 2) {
+            swapPositions(lastSelectedPositions);
+        }
         console.log('position', lastSelectedPositions);
     });
+}
+
+function swapPositions(positionArray) {
+    let pos1 = board[positionArray[0]];
+    let pos2 = board[positionArray[1]];
+    console.log('pos1', pos1);
+    console.log('pos2', pos2);
+    board[positionArray[1]] = pos1;
+    board[positionArray[0]] = pos2;
+
+    console.log('last clicked pos', board[positionArray[1]]);
+    console.log(board);
 }
 
 addPosition();
 renderBoard();
 renderPieces();
-console.log(board);
+// console.log(board);

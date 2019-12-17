@@ -37,7 +37,7 @@ body{
     height: 100px;
 }
 
-#whiteCircle{
+.whiteCircle{
     background-color: red ;
     border-radius: 50%;
     width: 90px;
@@ -45,7 +45,7 @@ body{
     margin: 5px;
 }
 
-#blackCircle{
+.blackCircle{
     background-color: green;
     border-radius: 50%;
     width: 90px;
@@ -53,7 +53,7 @@ body{
     margin: 5px;
 }
 
-#blank {
+.blank {
     width: 100px;
     height: 100px;
 }

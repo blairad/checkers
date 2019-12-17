@@ -1,5 +1,5 @@
 const boardContainer = document.getElementById('board');
-const piecesContainer = document.getElementById('pieces-container');
+let piecesContainer = document.getElementById('pieces-container');
 let lastSelectedPositions = [];
 
 let board = [];
@@ -58,21 +58,6 @@ function renderPieces() {
     }
 }
 
-function addPosition(){
-    piecesContainer.addEventListener('click', event => {
-        if (lastSelectedPositions.length < 2) {
-            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-        } else {
-            lastSelectedPositions.shift();
-            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-        }
-        if (lastSelectedPositions.length == 2) {
-            swapPositions(lastSelectedPositions);
-        }
-        console.log('position', lastSelectedPositions);
-    });
-}
-
 function swapPositions(positionArray) {
     let pos1 = board[positionArray[0]];
     let pos2 = board[positionArray[1]];
@@ -83,9 +68,24 @@ function swapPositions(positionArray) {
 
     console.log('last clicked pos', board[positionArray[1]]);
     console.log(board);
+    renderPieces();
 }
 
-addPosition();
+piecesContainer.addEventListener('click', event => {
+    if (lastSelectedPositions.length < 2) {
+        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+    } else {
+        lastSelectedPositions.shift();
+        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+    }
+    if (lastSelectedPositions.length == 2) {
+        swapPositions(lastSelectedPositions);
+    }
+    console.log('position', lastSelectedPositions);
+});
+
+
+// addPosition();
 renderBoard();
 renderPieces();
 // console.log(board);

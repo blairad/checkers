@@ -1,3 +1,7 @@
+:root{
+   --boardSize: 700px;
+}
+
 body{
     position: absolute;
     display: row;
@@ -7,8 +11,8 @@ body{
 }
 
 #board{
-    width: 700px;
-    height:700px;
+    width: var(--boardSize);
+    height: var(--boardSize);
     border: 2px solid black;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -18,8 +22,8 @@ body{
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 700px;
-    height:700px;
+    width: var(--boardSize);
+    height: var(--boardSize);
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);

@@ -10,6 +10,7 @@ piecesContainer.addEventListener('click', event => {
         if (lastSelectedPositions.length == 2 && canMoveFoarward() ||
             lastSelectedPositions.length == 2 && canTakePiece()) {
             swapPositions(lastSelectedPositions);
+            removePiece();
             updatePieces();
             lastSelectedPositions = [];
         }

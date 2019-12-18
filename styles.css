@@ -38,7 +38,7 @@ body{
     background-color: white;
 }
 
-.whiteCircle{
+.redCircle{
     background-color: red ;
     border-radius: 50%;
     width: 90%;
@@ -46,11 +46,17 @@ body{
     margin: auto;
 }
 
-.blackCircle{
+.greenCircle{
     background-color: green;
     border-radius: 50%;
     width: 90%;
     height: 90%;
     margin: auto;
+}
+
+#active-player{
+    background-color: red;
+    width: 50px;
+    height: 50px;
 }
 

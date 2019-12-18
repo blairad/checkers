@@ -1,5 +1,5 @@
-const player1 = {name: "James"};
-const player2 = {name: "Andrew"};
+const player1 = {name: "James", colour: "redCircle"};
+const player2 = {name: "Andrew", colour: "greenCircle"};
 // let players =[player1, player2];
 const game = {activePlayer: player1}
 

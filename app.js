@@ -1,16 +1,19 @@
 piecesContainer.addEventListener('click', event => {
-    if (lastSelectedPositions.length < 2) {
-        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-    } else {
-        lastSelectedPositions.shift();
-        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-    }
-    if (lastSelectedPositions.length == 2) {
-        swapPositions(lastSelectedPositions);
-        updatePieces();
-        lastSelectedPositions = [];
-    }
+    console.log(event.target.className)
+    if(event.target.className === game.activePlayer.colour || event.target.className === "blank"){
+        if (lastSelectedPositions.length < 2) {
+            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+        } else {
+            lastSelectedPositions.shift();
+            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+        }
+        if (lastSelectedPositions.length == 2) {
+            swapPositions(lastSelectedPositions);
+            updatePieces();
+            lastSelectedPositions = [];
+        }
     console.log('position', lastSelectedPositions);
+    }
 });
 
 document.getElementById('turn-change').addEventListener('click', event =>{

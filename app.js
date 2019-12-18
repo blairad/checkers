@@ -7,7 +7,8 @@ piecesContainer.addEventListener('click', event => {
             lastSelectedPositions.shift();
             lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
         }
-        if (lastSelectedPositions.length == 2) {
+        if (lastSelectedPositions.length == 2 && canMoveFoarward() ||
+            lastSelectedPositions.length == 2 && canTakePiece()) {
             swapPositions(lastSelectedPositions);
             updatePieces();
             lastSelectedPositions = [];

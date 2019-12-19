@@ -1,5 +1,10 @@
+const availablePlayablePieces = [];
+
 // checks for click events from player - so that correct piece is chosen, then makes move
 piecesContainer.addEventListener('click', event => {
+    
+    console.log('hello', canTakeOpponentPiece());
+
     if (firstClickIsPlayerPiece(event)) {
         console.log('first click', true);
         console.log(lastSelectedPositions);
@@ -9,6 +14,7 @@ piecesContainer.addEventListener('click', event => {
         console.log(lastSelectedPositions);
         lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
     }
+
     if (lastSelectedPositions.length == 2 && canMoveFoarward() ||
         lastSelectedPositions.length == 2 && canTakePiece()) {
         swapPositions(lastSelectedPositions);
@@ -17,6 +23,7 @@ piecesContainer.addEventListener('click', event => {
         lastSelectedPositions = [];
         changeActivePlayer();
     }
+    console.log('jobby', availablePlayablePieces);
 });
 
 
@@ -33,3 +40,19 @@ function changeActivePlayer() {
 function firstClickIsPlayerPiece(event) {
     return (lastSelectedPositions.length === 0 && event.target.className === game.activePlayer.colour);
 }
+
+// returns a boolean after determining whether player has opponent piece available to take
+// only works for red player at the moment!!!!!
+function canTakeOpponentPiece() {
+    let result = false;
+    for (i = 0; i < board.length; i++) {
+        if ((board[i] === 'r' && board[i + 7] === 'g' && board[i + 14] === 'o')
+            || (board[i] == 'r' && board[i + 9] === 'g' && board[i + 18] === 'o')) {
+            availablePlayablePieces.push(i);
+            result = true;
+        }
+    }
+    return result;
+}
+
+

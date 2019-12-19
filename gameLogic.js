@@ -1,10 +1,13 @@
 function canMoveFoarward(){
     if(game.activePlayer.colour === 'redCircle'){
-    return lastSelectedPositions[1] - 8 === lastSelectedPositions[0]
+        return lastSelectedPositions[1] - 7 === lastSelectedPositions[0]
+            || lastSelectedPositions[1] - 9 === lastSelectedPositions[0];
     } else if (game.activePlayer.colour === 'greenCircle'){
-        return lastSelectedPositions[1] + 8 === lastSelectedPositions[0]
+        return lastSelectedPositions[1] + 7 === lastSelectedPositions[0]
+            || lastSelectedPositions[1] + 9 === lastSelectedPositions[0];
     }
 }
+
 function canTakePiece(){
 
     if(game.activePlayer.colour === 'redCircle'){

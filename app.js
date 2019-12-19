@@ -1,32 +1,35 @@
+// checks for click events from player - so that correct piece is chosen, then makes move
 piecesContainer.addEventListener('click', event => {
-    console.log(event.target.className)
-    if(event.target.className === game.activePlayer.colour || event.target.className === "blank"){
-        if (lastSelectedPositions.length < 2) {
-            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-        } else {
-            lastSelectedPositions.shift();
-            lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
-        }
-        if (lastSelectedPositions.length == 2 && canMoveFoarward() ||
-            lastSelectedPositions.length == 2 && canTakePiece()) {
-            swapPositions(lastSelectedPositions);
-            removePiece();
-            updatePieces();
-            lastSelectedPositions = [];
-        }
-    console.log('position', lastSelectedPositions);
+    if (firstClickIsPlayerPiece(event)) {
+        console.log('first click', true);
+        console.log(lastSelectedPositions);
+        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+    } else if (lastSelectedPositions.length === 1 && event.target.className === 'blank') {
+        console.log('second click', true);
+        console.log(lastSelectedPositions);
+        lastSelectedPositions.push(parseInt(event.target.id.split('-')[1]));
+    }
+    if (lastSelectedPositions.length == 2 && canMoveFoarward() ||
+        lastSelectedPositions.length == 2 && canTakePiece()) {
+        swapPositions(lastSelectedPositions);
+        removePiece();
+        updatePieces();
+        lastSelectedPositions = [];
+        changeActivePlayer();
     }
 });
 
-document.getElementById('turn-change').addEventListener('click', event =>{
-    if(game.activePlayer === player1){
-        game.activePlayer = player2
-        document.getElementById('active-player').style['background-color'] 
-        = 'green'
+
+function changeActivePlayer() {
+    if (game.activePlayer === player1) {
+        game.activePlayer = player2;
+        document.getElementById('active-player').style['background-color'] = 'green';
     } else {
-        game.activePlayer = player1
-        document.getElementById('active-player').style['background-color'] 
-        = 'red'
-    } 
-    console.log(game.activePlayer.name)
-})
+        game.activePlayer = player1;
+        document.getElementById('active-player').style['background-color'] = 'red';
+    }
+}
+
+function firstClickIsPlayerPiece(event) {
+    return (lastSelectedPositions.length === 0 && event.target.className === game.activePlayer.colour);
+}

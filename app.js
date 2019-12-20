@@ -79,39 +79,51 @@ function isSecondClickBlank(event) {
 // }
 
 function collectCapturePiecesIndex(player) {
-
+    let capturePieceFound = false
+    const playablePiece = {
+        pieceIndex: 0,
+        captureIndex: []
+    }
+    // checks both positions in attack to see if they are free and poushes to array if they are
     if (player === player1) {
         for (i = 0; i < board.length; i++) {
+
             if (board[i] === 'r' && board[i + 7] === 'g' && board[i + 14] === 'o') {
-                    const playablePiece = {
-                        pieceIndex: i,
-                        captureIndex: i + 14
-                    }
-                    availablePlayablePieces.push(playablePiece)
-                } else if (board[i] == 'r' && board[i + 9] === 'g' && board[i + 18] === 'o') {
-                    const playablePiece = {
-                        pieceIndex: i,
-                        captureIndex: i + 18
-                    }
-                    availablePlayablePieces.push(playablePiece)
-                }
+                playablePiece.captureIndex.push(i + 14)
+                playablePiece.pieceIndex = i;
+                capturePieceFound = true;
             }
-        } else {
-            for (i = 0; i < board.length; i++) {
-                if (board[i] === 'g' && board[i - 7] === 'r' && board[i - 14] === 'o') {
-                        const playablePiece = {
-                            pieceIndex: i,
-                            captureIndex: i - 14
-                        }
-                        availablePlayablePieces.push(playablePiece)
-                    } else if (board[i] == 'g' && board[i - 9] === 'r' && board[i - 18] === 'o') {
-                        const playablePiece = {
-                            pieceIndex: i,
-                            captureIndex: i - 18
-                        }
-                        availablePlayablePieces.push(playablePiece)
-                    }
-                }
+            if (board[i] == 'r' && board[i + 9] === 'g' && board[i + 18] === 'o') {
+                playablePiece.captureIndex.push(i + 18)
+                playablePiece.pieceIndex = i;
+                capturePieceFound = true;
+            }
+            if (capturePieceFound) {
+                availablePlayablePieces.push(playablePiece)
+                capturePieceFound = false;
+            }
+        }
+    } else {
+        for (i = 0; i < board.length; i++) {
+            let capturePieceFound = false
+            if (board[i] === 'g' && board[i - 7] === 'r' && board[i - 14] === 'o') {
+                availablePlayablePieces.push(i - 14)
+                playablePiece.pieceIndex = i;
+                capturePieceFound = true;
+            }
+            if (board[i] == 'g' && board[i - 9] === 'r' && board[i - 18] === 'o') {
+                playablePiece.captureIndex.push(i - 18)
+                playablePiece.pieceIndex = i;
+                capturePieceFound = true;
             }
 
+            if (capturePieceFound) {
+                availablePlayablePieces.push(playablePiece)
+                capturePieceFound = false;
+            }
         }
+    }
+}
+
+
+

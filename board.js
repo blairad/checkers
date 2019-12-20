@@ -7,7 +7,7 @@ const player2 = {
     colour: "greenCircle"
 };
 // let players =[player1, player2];
-const game = {activePlayer: player}
+const game = {activePlayer: player1}
 
 
 const boardContainer = document.getElementById('board');

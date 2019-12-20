@@ -37,5 +37,5 @@ function removePiece(){
         } 
     }
 console.log(leftOrRight);
-   
+
 }

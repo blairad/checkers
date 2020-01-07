@@ -38,6 +38,27 @@ const board = {
             }
             this.pieces.push(piece);
         }
+    },
+
+    isValidMove(move, activePlayer) {
+        const piecePos = move.piecePos;
+        const movePos = move.movePos;
+
+        if (Math.abs(movePos - piecePos === 7) || Math.abs(movePos - piecePos === 9)) {
+            if (activePlayer === 1) {
+                return movePos > piecePos;
+            } else if (activePlayer === 2) {
+                return movePos < piecePos;
+            }
+        }
+    },
+
+    movePiece(move) {
+        const piecePos = move.piecePos;
+        const movePos = move.movePos;
+        this.pieces[movePos] = this.pieces[piecePos];
+        this.pieces[piecePos] = this.pieces[movePos];
+
     }
 
 

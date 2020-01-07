@@ -27,6 +27,11 @@ window.onload = () => {
         console.log(clickPosition);
 
         game.addMovePosition(clickPosition);
+
+        if (game.board.isValidMove(game.move, game.activePlayer)) {
+            game.board.movePiece(game.move);
+            console.table(game.board.pieces);
+        }
         console.log(game.move);
     });
 

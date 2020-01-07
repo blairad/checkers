@@ -1,5 +1,5 @@
 const game = require('./models/game.js');
-const board = require('./models/board.js');
+// const board = require('./models/board.js');
 const boardView = require('./views/boardView.js');
 
 
@@ -16,11 +16,22 @@ window.onload = () => {
     game.addPlayer(player1);
     game.addPlayer(player2);
 
-    board.setupPieces();
-    console.table(board.pieces);
+    game.board.setupPieces();
+    console.table(game.board.pieces);
 
-    boardView.renderBoard(board.board);
-    boardView.renderPieces(board.pieces);
+    boardView.renderBoard(game.board.board);
+    boardView.renderPieces(game.board.pieces);
+
+    document.addEventListener('click', event => {
+        const clickPosition = parseInt(event.target.id.split('-')[1]);
+        console.log(clickPosition);
+
+        game.addMovePosition(clickPosition);
+        console.log(game.move);
+    });
+
+
+
 }
 
 // const availablePlayablePieces = [];

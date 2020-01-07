@@ -20,6 +20,7 @@ window.onload = () => {
     console.table(board.pieces);
 
     boardView.renderBoard(board.board);
+    boardView.renderPieces(board.pieces);
 }
 
 // const availablePlayablePieces = [];

@@ -29,29 +29,19 @@ body{
     grid-template-rows: repeat(8, 1fr);
 }
 
-#black {
-    background-color: black;
+.piece {
+    border-radius: 50%;
+    width: 90%;
+    height: 90%;
+    margin: auto;
 }
 
-#white{
-    display: flex;
-    background-color: white;
-}
-
-.redCircle{
+.player-1{
     background-color: red ;
-    border-radius: 50%;
-    width: 90%;
-    height: 90%;
-    margin: auto;
 }
 
-.greenCircle{
+.player-2{
     background-color: green;
-    border-radius: 50%;
-    width: 90%;
-    height: 90%;
-    margin: auto;
 }
 
 #active-player{

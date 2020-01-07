@@ -21,8 +21,9 @@ const boardView = {
         }
     },
 
-    renderPieces() {
+    renderPieces(pieces) {
         const piecesContainer = document.getElementById('pieces-container');
+
         for (let i = 0; i < pieces.length; i++) {
             if (pieces[i].player === 1) {
                 let player1Piece = document.createElement('div');

@@ -10,7 +10,7 @@ body{
     margin: auto 0;
 }
 
-#board{
+#board-container{
     width: var(--boardSize);
     height: var(--boardSize);
     border: 2px solid black;

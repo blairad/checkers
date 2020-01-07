@@ -1,0 +1,28 @@
+{
+  "name": "checkers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  },
+  "scripts": {
+      "test": "mocha",
+      "build": "webpack -w"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blairad/checkers.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blairad/checkers/issues"
+  },
+  "homepage": "https://github.com/blairad/checkers#readme"
+}

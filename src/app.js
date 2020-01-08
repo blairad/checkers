@@ -29,11 +29,10 @@ window.onload = () => {
         console.log(clickPosition);
 
         game.addMovePosition(clickPosition);
-        console.log(game.board.isValidMove(game.move, game.activePlayer, "moveLog"))
         if (game.board.isValidMove(game.move, game.activePlayer)) {
             game.board.movePiece(game.move);
             game.switchPlayer();
-            console.log(game.activePlayer)
+            console.log(game.activePlayer);
             gameView.renderActivePlayer(game.activePlayer);
             console.log("valid move");
             boardView.renderPieces(game.board.pieces);

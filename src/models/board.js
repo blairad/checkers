@@ -43,14 +43,10 @@ const board = {
     isValidMove(move, activePlayer) {
         const piecePos = move.piecePos;
         const movePos = move.movePos;
-        // console.log(activePlayer)
-        // console.log( "move", move)
-        
-        if (Math.abs(movePos - piecePos === 7) || Math.abs(movePos - piecePos === 9)) {
+        if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
             if (activePlayer === 1) {
                 return movePos > piecePos;
             } else if (activePlayer === 2) {
-                
                 return movePos < piecePos;
             }
         }

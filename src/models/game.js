@@ -21,7 +21,15 @@ const game = {
         } else if (this.move.piecePos != ''){
             this.move.movePos = pos;
         }
+    },
+    switchPlayer(){
+        if(this.activePlayer === 1 ){
+            this.activePlayer = 2
+        }else {
+            this.activePlayer = 1
+        }
     }
+
 }
 
 module.exports = game;

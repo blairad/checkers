@@ -1,6 +1,7 @@
 const game = require('./models/game.js');
 // const board = require('./models/board.js');
 const boardView = require('./views/boardView.js');
+const gameView = require('./views/gameView')
 
 
 const player1 = {
@@ -21,17 +22,21 @@ window.onload = () => {
 
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
+    gameView.renderActivePlayer(game.activePlayer);
 
     document.addEventListener('click', event => {
         const clickPosition = parseInt(event.target.id.split('-')[1]);
         console.log(clickPosition);
 
         game.addMovePosition(clickPosition);
-
+        console.log(game.board.isValidMove(game.move, game.activePlayer, "moveLog"))
         if (game.board.isValidMove(game.move, game.activePlayer)) {
             game.board.movePiece(game.move);
+            game.switchPlayer();
+            console.log(game.activePlayer)
+            gameView.renderActivePlayer(game.activePlayer);
             console.log("valid move");
-            console.table(game.board.pieces);
+            boardView.renderPieces(game.board.pieces);
         }
         console.log(game.move);
     });

@@ -10,9 +10,8 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-      "test": "mocha",
-      "build": "webpack -w"
-
+    "test": "mocha",
+    "build": "webpack -w"
   },
   "repository": {
     "type": "git",

@@ -54,10 +54,10 @@ const board = {
     },
 
     movePiece(move) {
-        const piecePos = move.piecePos;
-        const movePos = move.movePos;
-        this.pieces[movePos] = this.pieces[piecePos];
-        this.pieces[piecePos] = this.pieces[movePos];
+        const pieceToMove = this.pieces[move.piecePos];
+        const pieceAtMove = this.pieces[move.movePos];
+        this.pieces[move.movePos] = pieceToMove;
+        this.pieces[move.piecePos] = pieceAtMove;
 
     }
 

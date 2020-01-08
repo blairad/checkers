@@ -17,7 +17,7 @@ window.onload = () => {
     game.addPlayer(player2);
 
     game.board.setupPieces();
-    console.table(game.board.pieces);
+    // console.table(game.board.pieces);
 
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
@@ -30,6 +30,7 @@ window.onload = () => {
 
         if (game.board.isValidMove(game.move, game.activePlayer)) {
             game.board.movePiece(game.move);
+            console.log("valid move");
             console.table(game.board.pieces);
         }
         console.log(game.move);

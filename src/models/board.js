@@ -22,6 +22,7 @@ const board = {
         0,2,0,2,0,2,0,2,
     ],
     pieces: [],
+    canCapture: false,
 
     setupPieces() {
         for (let i = 0; i < this.piecesTemplate.length; i++) {
@@ -43,11 +44,13 @@ const board = {
     isValidMove(move, activePlayer) {
         const piecePos = move.piecePos;
         const movePos = move.movePos;
-        if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
-            if (activePlayer === 1) {
-                return movePos > piecePos;
-            } else if (activePlayer === 2) {
-                return movePos < piecePos;
+        if (this.pieces[movePos].type === 'blank') {
+            if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
+                if (activePlayer === 1) {
+                    return movePos > piecePos;
+                } else if (activePlayer === 2) {
+                    return movePos < piecePos;
+                }
             }
         }
     },
@@ -58,7 +61,40 @@ const board = {
         this.pieces[move.movePos] = pieceToMove;
         this.pieces[move.piecePos] = pieceAtMove;
 
-    }
+    },
+
+    calcCapturePositions(activePlayer, opponent) {
+        const searchPositions = [[-9, -18], [-7, -14], [9, 18], [7, 14]];
+        let filteredSearchPositions = [];
+
+        if (activePlayer === 1) {
+            filteredSearchPositions = searchPositions.slice(0, 2);
+        } else {
+            filteredSearchPositions = searchPositions.slice(2, 4);
+        }
+
+        // console.log(filteredSearchPositions);
+
+
+        for (let i = 0; i < this.pieces.length; i++) {
+            filteredSearchPositions.forEach(position => {
+                const capturePos = (i - position[0]);
+                const movePos = (i - position[1]);
+                // console.log('capture pos: ', capturePos);
+                // console.log('move pos: ', movePos);
+                if (this.pieces[i].player === activePlayer
+                    && this.pieces[capturePos].player === opponent
+                    && this.pieces[movePos].type === 'blank') {
+                    const captureMove = {
+                        movePos: movePos,
+                        capturePos: capturePos
+                    };
+                    this.pieces[i].capturePos.push(captureMove);
+                    this.canCapture = true;
+                }
+            });
+        }
+    },
 
 
 

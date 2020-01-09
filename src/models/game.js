@@ -3,6 +3,7 @@ const board = require('./board.js');
 const game = {
     players: [],
     activePlayer: 1,
+    opponent: 2,
     board: board,
     move: {piecePos: '', movePos: ''},
 
@@ -12,6 +13,10 @@ const game = {
 
     clearMove() {
         this.move = {piecePos: '', movePos: ''};
+    },
+
+    hasSelectedPieceAndMovePos() {
+        return this.move.piecePos !== '' && this.move.movePos !== '';
     },
 
     addMovePosition(pos) {
@@ -24,9 +29,11 @@ const game = {
     },
     switchPlayer(){
         if(this.activePlayer === 1 ){
-            this.activePlayer = 2
+            this.activePlayer = 2;
+            this.opponent = 1;
         }else {
-            this.activePlayer = 1
+            this.activePlayer = 1;
+            this.opponent = 2;
         }
     }
 

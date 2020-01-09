@@ -14,30 +14,36 @@ const player2 = {
 };
 
 window.onload = () => {
+    // everything up to click event is only called at the start.
     game.addPlayer(player1);
     game.addPlayer(player2);
 
     game.board.setupPieces();
-    // console.table(game.board.pieces);
 
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
     gameView.renderActivePlayer(game.activePlayer);
 
+    // this is where the players 'turn' logic happens
     document.addEventListener('click', event => {
         const clickPosition = parseInt(event.target.id.split('-')[1]);
         console.log(clickPosition);
 
         game.addMovePosition(clickPosition);
-        if (game.board.isValidMove(game.move, game.activePlayer)) {
-            game.board.movePiece(game.move);
-            game.switchPlayer();
-            console.log(game.activePlayer);
-            gameView.renderActivePlayer(game.activePlayer);
-            console.log("valid move");
-            boardView.renderPieces(game.board.pieces);
+        if (game.hasSelectedPieceAndMovePos()) {
+            if (game.board.isValidMove(game.move, game.activePlayer)) {
+                game.board.movePiece(game.move);
+                game.switchPlayer();
+                game.board.calcCapturePositions(game.activePlayer, game.opponent);
+
+                console.log(game.activePlayer);
+                gameView.renderActivePlayer(game.activePlayer);
+                console.log("valid move");
+                boardView.renderPieces(game.board.pieces);
+            }
         }
         console.log(game.move);
+        console.table(game.board.pieces);
     });
 
 

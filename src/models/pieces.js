@@ -4,7 +4,7 @@ function piece(player, type, pos) {
         type,
         pos,
         movePos: [],
-        capturPos: []
+        capturePos: []
     };
 };
 

@@ -35,9 +35,15 @@ window.onload = () => {
             if (game.board.canCapture ) {
                 if(game.board.isValidCaptureMove(game.move)) {
                     game.board.capturePiece(game.move);
-                    game.switchPlayer();
                     game.board.clearCapturePos();
                     game.board.calcCapturePositions(game.activePlayer, game.opponent);
+                    if (!game.board.canCapture) {
+                        game.switchPlayer();
+                        game.board.clearCapturePos();
+                        game.board.calcCapturePositions(game.activePlayer, game.opponent);
+                        gameView.renderActivePlayer(game.activePlayer);
+                        boardView.renderPieces(game.board.pieces);
+                    }
                     gameView.renderActivePlayer(game.activePlayer);
                     boardView.renderPieces(game.board.pieces);
                 }

@@ -1,7 +1,8 @@
-function piece(player, type) {
+function piece(player, type, pos) {
     return {
         player,
         type,
+        pos,
         movePos: [],
         capturePos: []
     };

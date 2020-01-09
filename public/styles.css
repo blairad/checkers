@@ -44,6 +44,14 @@ body{
     background-color: green;
 }
 
+.player-1-king {
+    background-color: orange;
+}
+
+.player-2-king {
+    background-color: blue;
+}
+
 #active-player{
     width: 50px;
     height: 50px;

@@ -28,13 +28,14 @@ const board = {
         for (let i = 0; i < this.piecesTemplate.length; i++) {
             const player = this.piecesTemplate[i];
             const type = 'std';
+            const pos = i;
             let piece = '';
             if (player === 1) {
-                piece = newPiece(player, type);
+                piece = newPiece(player, type, pos);
             } else if (player === 2) {
-                piece = newPiece(player, type);
+                piece = newPiece(player, type, pos);
             } else {
-                piece = newPiece(player, 'blank');
+                piece = newPiece(player, 'blank', pos);
             }
             this.pieces.push(piece);
         }
@@ -62,8 +63,12 @@ const board = {
     movePiece(move) {
         const pieceToMove = this.pieces[move.piecePos];
         const pieceAtMove = this.pieces[move.movePos];
+        pieceToMove.pos = move.movePos;
+        pieceAtMove.pos = move.piecePos;
         this.pieces[move.movePos] = pieceToMove;
         this.pieces[move.piecePos] = pieceAtMove;
+
+        this.makeKing(this.pieces[move.movePos]);
 
     },
 
@@ -87,6 +92,7 @@ const board = {
                 // console.log('capture pos: ', capturePos);
                 // console.log('move pos: ', movePos);
                 if (this.pieces[i].player === activePlayer
+                    && this.board[movePos] === 1
                     && this.pieces[capturePos].player === opponent
                     && this.pieces[movePos].type === 'blank') {
                     const captureMove = {
@@ -103,13 +109,17 @@ const board = {
     capturePiece(move) {
         const pieceToMove = this.pieces[move.piecePos];
         const pieceAtMove = this.pieces[move.movePos];
+        pieceToMove.pos = move.movePos;
+        pieceAtMove.pos = move.piecePos;
 
         pieceToMove.capturePos.forEach(position => {
             console.log(position);
             if (position.movePos === move.movePos) {
                 this.pieces[move.movePos] = pieceToMove;
                 this.pieces[move.piecePos] = pieceAtMove;
-                this.pieces[position.capturePos] = newPiece(0, 'blank');
+                this.pieces[position.capturePos] = newPiece(0, 'blank', position.capturePos);
+
+                this.makeKing(this.pieces[move.movePos]);
             }
         });
     },
@@ -119,34 +129,15 @@ const board = {
         this.pieces.forEach(piece => {
             piece.capturePos = [];
         });
+    },
+
+    makeKing(piece) {
+        if (piece.player === 1 && piece.pos > 55
+            || piece.player === 2 && piece.pos < 8) {
+            piece.type = 'king';
+        }
     }
 
-
-
-// function swapPositions(positionArray) {
-//     let pos1 = board[positionArray[0]];
-//     let pos2 = board[positionArray[1]];
-//     console.log('pos1', pos1);
-//     console.log('pos2', pos2);
-//     board[positionArray[1]] = pos1;
-//     board[positionArray[0]] = pos2;
-
-//     console.log('last clicked pos', board[positionArray[1]]);
-// }
-
-// function updatePieces() {
-//     piecesContainer.innerHTML = '';
-//     renderPieces();
-// }
-
-// // addPosition();
-// renderBoard();
-// renderPieces();
-// // console.log(board);
-
-// function playerTurn() {
-
-// }
 
 }
 

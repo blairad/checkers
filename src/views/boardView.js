@@ -27,12 +27,20 @@ const boardView = {
         for (let i = 0; i < pieces.length; i++) {
             if (pieces[i].player === 1) {
                 let player1Piece = document.createElement('div');
-                player1Piece.className = "piece player-1";
+                if (pieces[i].type === 'king') {
+                    player1Piece.className = "piece player-1-king";
+                } else {
+                    player1Piece.className = "piece player-1";
+                }
                 player1Piece.id = `index-${i}`;
                 piecesContainer.appendChild(player1Piece);
             } else if (pieces[i].player === 2) {
                 let player2Piece = document.createElement('div');
-                player2Piece.className = "piece player-2";
+                if (pieces[i].type === 'king') {
+                    player2Piece.className = "piece player-2-king";
+                } else {
+                    player2Piece.className = "piece player-2";
+                }
                 player2Piece.id = `index-${i}`;
                 piecesContainer.appendChild(player2Piece);
             } else {

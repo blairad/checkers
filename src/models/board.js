@@ -28,14 +28,13 @@ const board = {
         for (let i = 0; i < this.piecesTemplate.length; i++) {
             const player = this.piecesTemplate[i];
             const type = 'std';
-            const pos = i;
             let piece = '';
             if (player === 1) {
-                piece = newPiece(player, type, pos);
+                piece = newPiece(player, type);
             } else if (player === 2) {
-                piece = newPiece(player, type, pos);
+                piece = newPiece(player, type);
             } else {
-                piece = newPiece(player, 'blank', pos);
+                piece = newPiece(player, 'blank');
             }
             this.pieces.push(piece);
         }
@@ -53,6 +52,11 @@ const board = {
                 }
             }
         }
+    },
+
+    isValidCaptureMove(move) {
+        const piece = this.pieces[move.piecePos];
+        return piece.capturePos.length > 0;
     },
 
     movePiece(move) {
@@ -95,6 +99,27 @@ const board = {
             });
         }
     },
+
+    capturePiece(move) {
+        const pieceToMove = this.pieces[move.piecePos];
+        const pieceAtMove = this.pieces[move.movePos];
+
+        pieceToMove.capturePos.forEach(position => {
+            console.log(position);
+            if (position.movePos === move.movePos) {
+                this.pieces[move.movePos] = pieceToMove;
+                this.pieces[move.piecePos] = pieceAtMove;
+                this.pieces[position.capturePos] = newPiece(0, 'blank');
+            }
+        });
+    },
+
+    clearCapturePos() {
+        this.canCapture = false;
+        this.pieces.forEach(piece => {
+            piece.capturePos = [];
+        });
+    }
 
 
 

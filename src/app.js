@@ -30,18 +30,29 @@ window.onload = () => {
         console.log(clickPosition);
 
         game.addMovePosition(clickPosition);
-        if (game.hasSelectedPieceAndMovePos()) {
-            if (game.board.isValidMove(game.move, game.activePlayer)) {
-                game.board.movePiece(game.move);
-                game.switchPlayer();
-                game.board.calcCapturePositions(game.activePlayer, game.opponent);
 
-                console.log(game.activePlayer);
-                gameView.renderActivePlayer(game.activePlayer);
-                console.log("valid move");
-                boardView.renderPieces(game.board.pieces);
+        if (game.hasSelectedPieceAndMovePos()) {
+            if (game.board.canCapture ) {
+                if(game.board.isValidCaptureMove(game.move)) {
+                    game.board.capturePiece(game.move);
+                    game.switchPlayer();
+                    game.board.clearCapturePos();
+                    game.board.calcCapturePositions(game.activePlayer, game.opponent);
+                    gameView.renderActivePlayer(game.activePlayer);
+                    boardView.renderPieces(game.board.pieces);
+                }
+            } else if (game.board.isValidMove(game.move, game.activePlayer)) {
+                    game.board.movePiece(game.move);
+                    game.switchPlayer();
+                    game.board.clearCapturePos();
+                    game.board.calcCapturePositions(game.activePlayer, game.opponent);
+                    console.log(game.activePlayer);
+                    gameView.renderActivePlayer(game.activePlayer);
+                    console.log("valid move");
+                    boardView.renderPieces(game.board.pieces);
+                }
             }
-        }
+        console.log(game.board.canCapture);
         console.log(game.move);
         console.table(game.board.pieces);
     });

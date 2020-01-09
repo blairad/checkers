@@ -25,6 +25,7 @@ const board = {
     canCapture: false,
 
     setupPieces() {
+        this.pieces =[];
         for (let i = 0; i < this.piecesTemplate.length; i++) {
             const player = this.piecesTemplate[i];
             const type = 'std';
@@ -44,8 +45,13 @@ const board = {
     isValidMove(move, activePlayer) {
         const piecePos = move.piecePos;
         const movePos = move.movePos;
+
+
         if (this.pieces[movePos].type === 'blank') {
             if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
+                if (this.pieces[piecePos].type === 'king'){
+                    return true;
+                }
                 if (activePlayer === 1) {
                     return movePos > piecePos;
                 } else if (activePlayer === 2) {

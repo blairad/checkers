@@ -24,8 +24,20 @@ window.onload = () => {
     boardView.renderPieces(game.board.pieces);
     gameView.renderActivePlayer(game.activePlayer);
 
+    document.getElementById('new-game').onclick = () => {
+        console.log('butts');
+        game.board.clearCapturePos();
+        game.board.setupPieces();
+        game.activePlayer = 1;
+        game.opponent = 2;
+
+        boardView.renderBoard(game.board.board);
+        boardView.renderPieces(game.board.pieces);
+        gameView.renderActivePlayer(game.activePlayer);
+    };
+
     // this is where the players 'turn' logic happens
-    document.addEventListener('click', event => {
+    document.getElementById('pieces-container').addEventListener('click', event => {
         const clickPosition = parseInt(event.target.id.split('-')[1]);
         console.log(clickPosition);
 

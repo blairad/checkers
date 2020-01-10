@@ -35,7 +35,8 @@ const game = {
             this.activePlayer = 1;
             this.opponent = 2;
         }
-    }
+    },
+    
 
 }
 

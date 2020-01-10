@@ -19,6 +19,7 @@ window.onload = () => {
     game.addPlayer(player2);
 
     game.board.setupPieces();
+    game.board.calcMovePositions(game.activePlayer);
 
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
@@ -47,11 +48,13 @@ window.onload = () => {
             if (game.board.canCapture ) {
                 if(game.board.isValidCaptureMove(game.move)) {
                     game.board.capturePiece(game.move);
-                    game.board.clearCapturePos();
+                    game.board.clearCaptureAndMovePos();
+                    game.board.calcMovePositions(game.activePlayer)
                     game.board.calcCapturePositions(game.activePlayer, game.opponent);
                     if (!game.board.canCapture) {
                         game.switchPlayer();
-                        game.board.clearCapturePos();
+                        game.board.clearCaptureAndMovePos();
+                        game.board.calcMovePositions(game.activePlayer)
                         game.board.calcCapturePositions(game.activePlayer, game.opponent);
                         gameView.renderActivePlayer(game.activePlayer);
                         boardView.renderPieces(game.board.pieces);
@@ -59,15 +62,18 @@ window.onload = () => {
                     gameView.renderActivePlayer(game.activePlayer);
                     boardView.renderPieces(game.board.pieces);
                 }
-            } else if (game.board.isValidMove(game.move, game.activePlayer)) {
-                    game.board.movePiece(game.move);
-                    game.switchPlayer();
-                    game.board.clearCapturePos();
-                    game.board.calcCapturePositions(game.activePlayer, game.opponent);
-                    console.log(game.activePlayer);
-                    gameView.renderActivePlayer(game.activePlayer);
-                    console.log("valid move");
-                    boardView.renderPieces(game.board.pieces);
+            } else if (game.board.canMove) {
+                if (game.board.isValidMove(game.move)){
+                        game.board.movePiece(game.move);
+                        game.switchPlayer();
+                        game.board.clearCaptureAndMovePos();
+                        game.board.calcMovePositions(game.activePlayer)
+                        game.board.calcCapturePositions(game.activePlayer, game.opponent);
+                        console.log(game.activePlayer);
+                        gameView.renderActivePlayer(game.activePlayer);
+                        console.log("valid move");
+                        boardView.renderPieces(game.board.pieces);
+                    }
                 }
             }
         console.log(game.board.canCapture);

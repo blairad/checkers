@@ -23,6 +23,7 @@ const board = {
     ],
     pieces: [],
     canCapture: false,
+    canMove: false,
 
     setupPieces() {
         this.pieces =[];
@@ -42,28 +43,32 @@ const board = {
         }
     },
 
-    isValidMove(move, activePlayer) {
-        const piecePos = move.piecePos;
-        const movePos = move.movePos;
+    // isValidMove(move, activePlayer) {
+    //     const piecePos = move.piecePos;
+    //     const movePos = move.movePos;
 
 
-        if (this.pieces[movePos].type === 'blank') {
-            if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
-                if (this.pieces[piecePos].type === 'king'){
-                    return true;
-                }
-                if (activePlayer === 1) {
-                    return movePos > piecePos;
-                } else if (activePlayer === 2) {
-                    return movePos < piecePos;
-                }
-            }
-        }
-    },
+    //     if (this.pieces[movePos].type === 'blank') {
+    //         if (Math.abs(movePos - piecePos) === 7 || Math.abs(movePos - piecePos) === 9) {
+    //             if (this.pieces[piecePos].type === 'king'){
+    //                 return true;
+    //             }
+    //             if (activePlayer === 1) {
+    //                 return movePos > piecePos;
+    //             } else if (activePlayer === 2) {
+    //                 return movePos < piecePos;
+    //             }
+    //         }
+    //     }
+    // },
 
     isValidCaptureMove(move) {
         const piece = this.pieces[move.piecePos];
         return piece.capturePos.length > 0;
+    },
+    isValidMove(move) {
+        const piece = this.pieces[move.piecePos];
+        return piece.movePos.length > 0;
     },
 
     movePiece(move) {
@@ -113,8 +118,6 @@ const board = {
             filteredSearchPositions.forEach(position => {
                 const capturePos = (i - position[0]);
                 const movePos = (i - position[1]);
-                // console.log('capture pos: ', capturePos);
-                // console.log('move pos: ', movePos);
                 if (this.pieces[i].player === activePlayer
                     && this.board[movePos] === 1
                     && this.pieces[capturePos].player === opponent
@@ -148,10 +151,13 @@ const board = {
         });
     },
 
-    clearCapturePos() {
+    clearCaptureAndMovePos() {
         this.canCapture = false;
+        this.canMove = false;
         this.pieces.forEach(piece => {
             piece.capturePos = [];
+            piece.movePos = [];
+
         });
     },
 
@@ -159,6 +165,47 @@ const board = {
         if (piece.player === 1 && piece.pos > 55
             || piece.player === 2 && piece.pos < 8) {
             piece.type = 'king';
+        }
+    },
+    calcMovePositions(activePlayer) {
+        const searchPositions = [-7,-9,7,9];
+        let filteredSearchPositions = [];
+        
+        if (activePlayer === 1) {
+            filteredSearchPositions = searchPositions.slice(0,2);
+        } else {
+            filteredSearchPositions = searchPositions.slice(2,4);
+        }
+        
+        for (let i = 0; i < this.pieces.length; i++) {
+            if(this.pieces[i].type === "king"){
+                searchPositions.forEach(position => {
+                const movePos = (i - position);
+                
+                if (this.pieces[i].player === activePlayer
+                    && this.board[movePos] === 1
+                    && this.pieces[movePos].type === 'blank') {
+                    const move= {
+                        movePos: movePos,
+                    };
+                    this.pieces[i].movePos.push(move);
+                    this.canMove = true;
+                }
+                })
+            }
+            filteredSearchPositions.forEach(position => {
+                const movePos = (i - position);
+
+                if (this.pieces[i].player === activePlayer
+                    && this.board[movePos] === 1
+                    && this.pieces[movePos].type === 'blank') {
+                    const move= {
+                        movePos: movePos,
+                    };
+                    this.pieces[i].movePos.push(move);
+                    this.canMove = true;
+                }
+            });
         }
     }
 

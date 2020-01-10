@@ -1,0 +1,13 @@
+isValidMove(move) {
+        const piece = this.pieces[move.piecePos];
+        console.log(piece)
+            if (piece.movePos.length > 0) {
+                piece.movePos.forEach(position => {
+                    console.log("position", position)
+                    *here*return position.movePos === move.movePos*here*
+                }) 
+        }   else {
+                return false;
+        }
+
+why is this not working. it should be returning true. maybe the scope of the return is not there

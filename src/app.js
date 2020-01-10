@@ -6,11 +6,13 @@ const gameView = require('./views/gameView');
 
 const player1 = {
     name: "James",
-    player: 1
+    player: 1,
+    pieces: 12
 };
 const player2 = {
     name: "Andrew",
-    player: 2
+    player: 2,
+    pieces: 12
 };
 
 window.onload = () => {
@@ -58,6 +60,7 @@ window.onload = () => {
                         gameView.renderActivePlayer(game.activePlayer);
                         boardView.renderPieces(game.board.pieces);
                     }
+                    game.board.updatePlayerPieceCount(game.players[0], game.players[1]);
                     gameView.renderActivePlayer(game.activePlayer);
                     boardView.renderPieces(game.board.pieces);
                 }

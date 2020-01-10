@@ -161,6 +161,18 @@ const board = {
         });
     },
 
+    updatePlayerPieceCount(player1, player2){
+        player1.pieces = 0;
+        player2.pieces = 0;
+        this.pieces.forEach(piece =>{
+            if(piece.player === 1){
+                player1.pieces += 1
+            } else if(piece.player === 2){
+                player2.pieces += 1
+            }      
+        })
+    },
+
     clearCaptureAndMovePos() {
         this.canCapture = false;
         this.canMove = false;

@@ -37,9 +37,17 @@ const game = {
         }
     },
     checkForWinner(){
-        if(!this.board.canCapture && !this.board.canMove){
+        if(!this.board.canCapture && !this.board.canMove || this.activePlayer === this.checkForNoPieces()){
             return this.opponent
         }
+        
+    },
+    checkForNoPieces(){
+        this.players.forEach(player => {
+            if (player.pieces === 0) {
+                return player.player
+            }
+        })
     }
 
 }

@@ -78,15 +78,7 @@ const board = {
     },
     isValidMove(move) {
         const piece = this.pieces[move.piecePos];
-        console.log(piece)
-            if (piece.movePos.length > 0) {
-                piece.movePos.forEach(position => {
-                    console.log("position", position)
-                    return position.movePos === move.movePos
-                }) 
-        }   else {
-                return false;
-        }
+        return piece.movePos.includes(move.movePos);
     },
 
     movePiece(move) {
@@ -131,7 +123,7 @@ const board = {
                     this.pieces[i].capturePos.push(captureMove);
                     this.canCapture = true;
                 }
-                })
+                });
             }
             filteredSearchPositions.forEach(position => {
                 const capturePos = (i - position[0]);
@@ -193,23 +185,20 @@ const board = {
             filteredSearchPositions = searchPositions.slice(0,2);
         } else {
             filteredSearchPositions = searchPositions.slice(2,4);
-        }
-        
+        };
+
         for (let i = 0; i < this.pieces.length; i++) {
             if(this.pieces[i].type === "king"){
                 searchPositions.forEach(position => {
                 const movePos = (i - position);
-                
+
                 if (this.pieces[i].player === activePlayer
                     && this.board[movePos] === 1
                     && this.pieces[movePos].type === 'blank') {
-                    const move= {
-                        movePos: movePos,
-                    };
-                    this.pieces[i].movePos.push(move);
+                    this.pieces[i].movePos.push(movePos);
                     this.canMove = true;
                 }
-                })
+                });
             }
             filteredSearchPositions.forEach(position => {
                 const movePos = (i - position);
@@ -217,10 +206,7 @@ const board = {
                 if (this.pieces[i].player === activePlayer
                     && this.board[movePos] === 1
                     && this.pieces[movePos].type === 'blank') {
-                    const move= {
-                        movePos: movePos,
-                    };
-                    this.pieces[i].movePos.push(move);
+                    this.pieces[i].movePos.push(movePos);
                     this.canMove = true;
                 }
             });

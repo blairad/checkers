@@ -92,6 +92,24 @@ const board = {
 
 
         for (let i = 0; i < this.pieces.length; i++) {
+            if(this.pieces[i].type === "king"){
+                searchPositions.forEach(position => {
+                const capturePos = (i - position[0]);
+                const movePos = (i - position[1]);
+                
+                if (this.pieces[i].player === activePlayer
+                    && this.board[movePos] === 1
+                    && this.pieces[capturePos].player === opponent
+                    && this.pieces[movePos].type === 'blank') {
+                    const captureMove = {
+                        movePos: movePos,
+                        capturePos: capturePos
+                    };
+                    this.pieces[i].capturePos.push(captureMove);
+                    this.canCapture = true;
+                }
+                })
+            }
             filteredSearchPositions.forEach(position => {
                 const capturePos = (i - position[0]);
                 const movePos = (i - position[1]);

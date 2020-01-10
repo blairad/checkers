@@ -143,7 +143,7 @@ const board = {
         }
     },
 
-    capturePiece(move) {
+    capturePiece(move, opponentObj) {
         const pieceToMove = this.pieces[move.piecePos];
         const pieceAtMove = this.pieces[move.movePos];
         pieceToMove.pos = move.movePos;
@@ -155,6 +155,8 @@ const board = {
                 this.pieces[move.movePos] = pieceToMove;
                 this.pieces[move.piecePos] = pieceAtMove;
                 this.pieces[position.capturePos] = newPiece(0, 'blank', position.capturePos);
+
+                opponentObj.pieceCount -= 1;
 
                 this.makeKing(this.pieces[move.movePos]);
             }

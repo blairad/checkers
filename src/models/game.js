@@ -36,7 +36,11 @@ const game = {
             this.opponent = 2;
         }
     },
-    
+    checkForWinner(){
+        if(!this.board.canCapture && !this.board.canMove){
+            return this.opponent
+        }
+    }
 
 }
 

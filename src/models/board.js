@@ -21,6 +21,16 @@ const board = {
         2,0,2,0,2,0,2,0,
         0,2,0,2,0,2,0,2,
     ],
+    lossTemplate: [
+        1,0,0,0,0,0,0,0,
+        0,2,0,0,0,0,0,0,
+        0,0,2,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,
+    ],
     pieces: [],
     canCapture: false,
     canMove: false,
@@ -68,7 +78,15 @@ const board = {
     },
     isValidMove(move) {
         const piece = this.pieces[move.piecePos];
-        return piece.movePos.length > 0;
+        console.log(piece)
+            if (piece.movePos.length > 0) {
+                piece.movePos.forEach(position => {
+                    console.log("position", position)
+                    return position.movePos === move.movePos
+                }) 
+        }   else {
+                return false;
+        }
     },
 
     movePiece(move) {

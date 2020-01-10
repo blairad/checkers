@@ -20,7 +20,6 @@ window.onload = () => {
 
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
-
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
     gameView.renderActivePlayer(game.activePlayer);
@@ -64,6 +63,7 @@ window.onload = () => {
                 }
             } else if (game.board.canMove) {
                 if (game.board.isValidMove(game.move)){
+                    console.log("doesn't matter it's different")
                         game.board.movePiece(game.move);
                         game.switchPlayer();
                         game.board.clearCaptureAndMovePos();

@@ -85,10 +85,5 @@ window.onload = () => {
         console.log(`player ${game.checkForWinner()} is the winner!`);
         // console.log(game.board.canCapture);
         console.log(game.move);
-        // console.table(game.board.pieces);
-    });
-
-
-
+        // console.table(game.board.pieces); });
 }
-

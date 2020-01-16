@@ -86,4 +86,5 @@ window.onload = () => {
         // console.log(game.board.canCapture);
         console.log(game.move);
         // console.table(game.board.pieces); });
-}
+    });
+};

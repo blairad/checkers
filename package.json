@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
   "devDependencies": {
     "mocha": "^6.2.2",
     "webpack": "^4.41.5",

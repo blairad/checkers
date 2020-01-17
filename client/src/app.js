@@ -1,3 +1,4 @@
+const socket = require('socket.io-client')();
 const game = require('./models/game.js');
 // const board = require('./models/board.js');
 const boardView = require('./views/boardView.js');
@@ -39,6 +40,16 @@ window.onload = () => {
         gameView.renderActivePlayer(game.activePlayer);
     };
 
+    socket.on('pieces', (pieces) => {
+        game.board.pieces = pieces;
+        boardView.renderPieces(game.board.pieces);
+        game.switchPlayer();
+        gameView.renderActivePlayer(game.activePlayer);
+        game.board.clearCaptureAndMovePos();
+        game.board.calcMovePositions(game.activePlayer);
+        game.board.calcCapturePositions(game.activePlayer, game.opponent);
+    })
+
     // this is where the players 'turn' logic happens
     document.getElementById('pieces-container').addEventListener('click', event => {
         const clickPosition = parseInt(event.target.id.split('-')[1]);
@@ -63,6 +74,7 @@ window.onload = () => {
                     }
                     gameView.renderActivePlayer(game.activePlayer);
                     boardView.renderPieces(game.board.pieces);
+                    socket.emit('pieces', game.board.pieces);
                 }
             } else if (game.board.canMove) {
                 console.log(game.board.isValidMove(game.move));
@@ -78,6 +90,7 @@ window.onload = () => {
                     gameView.renderActivePlayer(game.activePlayer);
                     console.log("valid move");
                     boardView.renderPieces(game.board.pieces);
+                    socket.emit('pieces', game.board.pieces);
                     }
                 }
             }

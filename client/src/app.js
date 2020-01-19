@@ -4,28 +4,28 @@ const game = require('./models/game.js');
 const boardView = require('./views/boardView.js');
 const gameView = require('./views/gameView');
 
-const newPlayer = (player, name) => {
-    return {
-        player,
-        name,
-        pieceCount: 12
-    };
-};
+// const newPlayer = (player, name) => {
+//     return {
+//         player,
+//         name,
+//         pieceCount: 12
+//     };
+// };
 
-const player1 = newPlayer(1, 'James');
-const player2 = newPlayer(2, 'Andrew');
+// const player1 = newPlayer(1, 'James');
+// const player2 = newPlayer(2, 'Andrew');
+let youArePlayer = 0;
 
 window.onload = () => {
     // everything up to click event is only called at the start.
-    game.addPlayer(player1);
-    game.addPlayer(player2);
+    // game.addPlayer(player1);
+    // game.addPlayer(player2);
 
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
     boardView.renderBoard(game.board.board);
     boardView.renderPieces(game.board.pieces);
     gameView.renderActivePlayer(game.activePlayer);
-
     console.table(game.board.pieces);
 
     document.getElementById('new-game').onclick = () => {
@@ -39,6 +39,32 @@ window.onload = () => {
         boardView.renderPieces(game.board.pieces);
         gameView.renderActivePlayer(game.activePlayer);
     };
+
+    document.querySelector('form').addEventListener('submit', event => {
+        event.preventDefault();
+        const player = {
+            name: event.target.name.value,
+            player: +event.target.player.value, 
+            id: socket.id
+        };
+        socket.emit('addPlayer', player);
+    });
+
+    socket.on('addPlayer', (players) => {
+        players.forEach(player => {
+            player.pieceCount = 12;
+            game.addPlayer(player);
+            if(player.id === socket.id) {
+                youArePlayer = player.player;
+            }
+        });
+        console.log(game.players);
+        console.log(youArePlayer);
+        if(youArePlayer === 1) {
+            document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
+        }
+    })
+
 
     socket.on('pieces', (pieces) => {
         game.board.pieces = pieces;

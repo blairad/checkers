@@ -11,12 +11,26 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '../client/public')));
 
+players = [];
+
 server.listen(port, () => {
     console.log(`listening on port ${port}`)
 });
 
 io.on('connection', (socket) => {
     console.log('a user connected')
+
+    socket.on('addPlayer', (player) => {
+        if(players.length < 2) {
+            players.push(player);
+            console.log(player);
+            console.log(players);
+        }; 
+        if (players.length === 2) {
+            io.emit('addPlayer', players);
+            console.log('players sent');
+        };     
+    });
 
     socket.on('pieces', (pieces) => {
         console.log('pieces sent');

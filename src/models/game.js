@@ -11,6 +11,14 @@ const game = {
         this.players.push(player);
     },
 
+    getActivePlayer() {
+        return this.activePlayer === 1 ? this.players[0] : this.players[1];
+    },
+
+    getOpponent() {
+        return this.opponent === 1 ? this.players[0] : this.players[1];
+    },
+
     clearMove() {
         this.move = {piecePos: '', movePos: ''};
     },
@@ -23,7 +31,7 @@ const game = {
         if (this.board.pieces[pos].player === this.activePlayer) {
             this.clearMove();
             this.move.piecePos = pos;
-        } else if (this.move.piecePos != ''){
+        } else if (this.move.piecePos !== ''){
             this.move.movePos = pos;
         }
     },
@@ -36,19 +44,13 @@ const game = {
             this.opponent = 2;
         }
     },
+
     checkForWinner(){
-        if(!this.board.canCapture && !this.board.canMove || this.activePlayer === this.checkForNoPieces()){
-            return this.opponent
+        if(!this.board.canCapture && !this.board.canMove
+           || this.getActivePlayer().pieceCount === 0){
+            return this.opponent;
         }
-        
     },
-    checkForNoPieces(){
-        this.players.forEach(player => {
-            if (player.pieces === 0) {
-                return player.player
-            }
-        })
-    }
 
 }
 

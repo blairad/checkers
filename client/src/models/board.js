@@ -111,7 +111,6 @@ const board = {
                 searchPositions.forEach(position => {
                 const capturePos = (i - position[0]);
                 const movePos = (i - position[1]);
-                
                 if (this.pieces[i].player === activePlayer
                     && this.board[movePos] === 1
                     && this.pieces[capturePos].player === opponent
@@ -182,7 +181,6 @@ const board = {
     calcMovePositions(activePlayer) {
         const searchPositions = [-7,-9,7,9];
         let filteredSearchPositions = [];
-        
         if (activePlayer === 1) {
             filteredSearchPositions = searchPositions.slice(0,2);
         } else {

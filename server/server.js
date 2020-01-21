@@ -33,7 +33,9 @@ io.on('connection', (socket) => {
             console.log(players);
         }; 
         if (players.length === 2) {
-            io.emit('addPlayer', players);
+            players.forEach(player => {
+                io.to(player.id).emit('addPlayer', players);
+            })
             console.log('players sent');
             players = [];
         };     

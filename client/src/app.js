@@ -15,6 +15,7 @@ const gameView = require('./views/gameView.js');
 // const player1 = newPlayer(1, 'James');
 // const player2 = newPlayer(2, 'Andrew');
 let youArePlayer = 0;
+let opponentId = 0;
 
 window.onload = () => {
     // everything up to click event is only called at the start.
@@ -55,6 +56,8 @@ window.onload = () => {
             game.addPlayer(player);
             if(player.id === socket.id) {
                 youArePlayer = player.player;
+            } else {
+                opponentId = player.id;
             }
         });
         console.log(game.players);
@@ -110,7 +113,7 @@ window.onload = () => {
                         }
                         gameView.renderActivePlayer(game.activePlayer);
                         gameView.renderPieces(game.board.pieces);
-                        socket.emit('pieces', game.board.pieces);
+                        socket.emit('pieces', opponentId, game.board.pieces);
                     }
                 } else if (game.board.canMove) {
                     console.log(game.board.isValidMove(game.move));
@@ -126,7 +129,7 @@ window.onload = () => {
                         gameView.renderActivePlayer(game.activePlayer);
                         console.log("valid move");
                         gameView.renderPieces(game.board.pieces);
-                        socket.emit('pieces', game.board.pieces);
+                        socket.emit('pieces', opponentId, game.board.pieces);
                     }
                 }
             }

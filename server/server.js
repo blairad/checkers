@@ -18,6 +18,7 @@ server.listen(port, () => {
 });
 
 io.on('connection', (socket) => {
+    socket.adapter.rooms
     console.log('a user connected')
 
     socket.on('addPlayer', (player) => {
@@ -34,12 +35,14 @@ io.on('connection', (socket) => {
         if (players.length === 2) {
             io.emit('addPlayer', players);
             console.log('players sent');
+            players = [];
         };     
     });
 
-    socket.on('pieces', (pieces) => {
+    socket.on('pieces', (opponentId, pieces) => {
         console.log('pieces sent');
-        console.log(pieces);
-        socket.broadcast.emit('pieces', pieces);
+        console.log('incoming: ', pieces);
+        console.log(opponentId);
+        socket.broadcast.to(opponentId).emit('pieces', pieces);
     })
 });

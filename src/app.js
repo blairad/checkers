@@ -88,4 +88,4 @@ window.onload = () => {
         console.log(game.move);
         // console.table(game.board.pieces); });
 })
-};
+}; // a wee change

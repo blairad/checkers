@@ -9,16 +9,16 @@
     <script src="js/bundle.js"></script>
 </head>
 <body>
-    <div id="board-container"></div>
-    <div id="pieces-container"></div>
-    <div id="active-player"></div>
-    <button id="new-game">New Game</button>
-    <form action="submit">
+    <form action="submit"> 
         <input id="name" type="text" placeholder="User Name">
-        <br>
-        <input id="player" type="number" min="1" max="2">
-        <br>
+        <!-- <input id="player" type="number" min="1" max="2"> -->
         <input type="submit" value="Submit">
     </form>
+    <div id="game" hidden>
+        <div id="board-container"></div>
+        <div id="pieces-container"></div>
+        <div id="active-player"></div>
+        <button id="new-game">New Game</button>
+    </div>
 </body>
 </html>

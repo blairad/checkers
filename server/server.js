@@ -22,6 +22,11 @@ io.on('connection', (socket) => {
 
     socket.on('addPlayer', (player) => {
         if(players.length < 2) {
+            if(players.length === 0) {
+                player.player = 1;
+            } else {
+                player.player = 2;
+            }
             players.push(player);
             console.log(player);
             console.log(players);

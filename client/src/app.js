@@ -43,7 +43,7 @@ window.onload = () => {
         event.preventDefault();
         const player = {
             name: event.target.name.value,
-            player: +event.target.player.value, 
+            // player: +event.target.player.value, 
             id: socket.id
         };
         socket.emit('addPlayer', player);
@@ -62,6 +62,8 @@ window.onload = () => {
         if(youArePlayer === 1) {
             document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
         }
+        document.querySelector('form').hidden = true;
+        document.getElementById('game').hidden = false;
     })
 
 

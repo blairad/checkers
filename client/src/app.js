@@ -1,7 +1,7 @@
 const socket = require('socket.io-client')();
 const game = require('./models/game.js');
 // const board = require('./models/board.js');
-const boardView = require('./views/boardView.js');
+// const gameView = require('./views/gameView.js');
 const gameView = require('./views/gameView.js');
 
 // const newPlayer = (player, name) => {
@@ -23,8 +23,8 @@ window.onload = () => {
 
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
-    boardView.renderBoard(game.board.board);
-    boardView.renderPieces(game.board.pieces);
+    gameView.renderBoard(game.board.board);
+    gameView.renderPieces(game.board.pieces);
     gameView.renderActivePlayer(game.activePlayer);
     console.table(game.board.pieces);
 
@@ -34,8 +34,8 @@ window.onload = () => {
         game.activePlayer = 1;
         game.opponent = 2;
 
-        boardView.renderBoard(game.board.board);
-        boardView.renderPieces(game.board.pieces);
+        gameView.renderBoard(game.board.board);
+        gameView.renderPieces(game.board.pieces);
         gameView.renderActivePlayer(game.activePlayer);
     };
 
@@ -67,7 +67,7 @@ window.onload = () => {
 
     socket.on('pieces', (pieces) => {
         game.board.pieces = pieces;
-        boardView.renderPieces(game.board.pieces);
+        gameView.renderPieces(game.board.pieces);
         game.switchPlayer();
         gameView.renderActivePlayer(game.activePlayer);
         game.board.clearCaptureAndMovePos();
@@ -104,10 +104,10 @@ window.onload = () => {
                             game.board.calcMovePositions(game.activePlayer);
                             game.board.calcCapturePositions(game.activePlayer, game.opponent);
                             gameView.renderActivePlayer(game.activePlayer);
-                            boardView.renderPieces(game.board.pieces);
+                            gameView.renderPieces(game.board.pieces);
                         }
                         gameView.renderActivePlayer(game.activePlayer);
-                        boardView.renderPieces(game.board.pieces);
+                        gameView.renderPieces(game.board.pieces);
                         socket.emit('pieces', game.board.pieces);
                     }
                 } else if (game.board.canMove) {
@@ -123,7 +123,7 @@ window.onload = () => {
                         console.log(game.activePlayer);
                         gameView.renderActivePlayer(game.activePlayer);
                         console.log("valid move");
-                        boardView.renderPieces(game.board.pieces);
+                        gameView.renderPieces(game.board.pieces);
                         socket.emit('pieces', game.board.pieces);
                     }
                 }

@@ -2,7 +2,7 @@ const socket = require('socket.io-client')();
 const game = require('./models/game.js');
 // const board = require('./models/board.js');
 const boardView = require('./views/boardView.js');
-const gameView = require('./views/gameView');
+const gameView = require('./views/gameView.js');
 
 // const newPlayer = (player, name) => {
 //     return {

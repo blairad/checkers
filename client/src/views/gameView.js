@@ -1,4 +1,4 @@
-const boardView = {
+const gameView = {
     renderActivePlayer(activePlayer){
         const activePlayerElement = document.getElementById('active-player')
         if (activePlayer === 1 ){
@@ -9,4 +9,4 @@ const boardView = {
     }
 };
 
-module.exports = boardView;
+module.exports = gameView;

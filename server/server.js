@@ -11,7 +11,11 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '../client/public')));
 
-players = [];
+let players = [];
+
+let games = {
+
+};
 
 server.listen(port, () => {
     console.log(`listening on port ${port}`)
@@ -50,7 +54,20 @@ io.on('connection', (socket) => {
 
     socket.on('playerReady', playerid =>{
         io.emit('playerReady', playerid)
-    })
+        players.forEach(player => {
+            if(player.id === playerid){
+                games.playerid = {
+                    player1: player
+                }
+                console.log('new game', games.playerid)
+                // games.push(newGame)
+            }
+        })
+    });
+
+    socket.on('pairPlayers', (gameid, playerid) => {
+
+    } )
 
 
     socket.on('pieces', (opponentId, pieces) => {

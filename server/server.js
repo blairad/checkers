@@ -19,32 +19,44 @@ server.listen(port, () => {
 
 io.on('connection', (socket) => {
     socket.adapter.rooms
-    console.log('a user connected')
+    // console.log('a user connected')
 
-    socket.on('addPlayer', (player) => {
-        if(players.length < 2) {
-            if(players.length === 0) {
-                player.player = 1;
-            } else {
-                player.player = 2;
-            }
-            players.push(player);
-            console.log(player);
-            console.log(players);
-        }; 
-        if (players.length === 2) {
-            players.forEach(player => {
-                io.to(player.id).emit('addPlayer', players);
-            })
-            console.log('players sent');
-            players = [];
-        };     
+    // socket.on('addPlayer', (player) => {
+    //     if(players.length < 2) {
+    //         if(players.length === 0) {
+    //             player.player = 1;
+    //         } else {
+    //             player.player = 2;
+    //         }
+    //         players.push(player);
+    //         // console.log(player);
+    //         // console.log(players);
+    //     }; 
+    //     if (players.length === 2) {
+    //         players.forEach(player => {
+    //             io.to(player.id).emit('addPlayer', players);
+    //         })
+    //         // console.log('players sent');
+    //         players = [];
+    //     };     
+    // });
+
+    socket.on('joinLobby', (player) =>{
+        console.log(player);
+        players.push(player);
+        console.log(players);
+        io.emit('playerList', players)
     });
 
+    socket.on('playerReady', playerid =>{
+        io.emit('playerReady', playerid)
+    })
+
+
     socket.on('pieces', (opponentId, pieces) => {
-        console.log('pieces sent');
-        console.log('incoming: ', pieces);
-        console.log(opponentId);
+        // console.log('pieces sent');
+        // console.log('incoming: ', pieces);
+        // console.log(opponentId);
         socket.broadcast.to(opponentId).emit('pieces', pieces);
     })
 });

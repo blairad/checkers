@@ -3,24 +3,23 @@ const game = require('./models/game.js');
 // const board = require('./models/board.js');
 // const gameView = require('./views/gameView.js');
 const gameView = require('./views/gameView.js');
+const lobbyView = require('./views/lobbyView.js')
 
-// const newPlayer = (player, name) => {
-//     return {
-//         player,
-//         name,
-//         pieceCount: 12
-//     };
-// };
+// const players = [
+//         {name: 'RZA'},
+//         {name: 'Duncan'},
+//         {name: 'Julia'},
+//         {name: 'Method Man'},
+//         {name: 'ODB'} 
+// ];
 
-// const player1 = newPlayer(1, 'James');
-// const player2 = newPlayer(2, 'Andrew');
 let youArePlayer = 0;
 let opponentId = 0;
 
 window.onload = () => {
-    // everything up to click event is only called at the start.
-    // game.addPlayer(player1);
-    // game.addPlayer(player2);
+    // document.querySelector('form').hidden = true;
+    // document.getElementById('game').hidden = true;
+    // lobbyView.renderPlayers(players);
 
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
@@ -47,14 +46,26 @@ window.onload = () => {
             // player: +event.target.player.value, 
             id: socket.id
         };
-        socket.emit('addPlayer', player);
+        socket.emit('joinLobby', player);
+    });
+
+    document.querySelector('#player-ready').addEventListener('click', event => {
+        socket.emit('playerReady', socket.id)
+    });
+
+    socket.on('playerReady', playerid => {
+        document.getElementById(playerid).style.backgroundColor = 'green';
+    });
+
+    socket.on('playerList', (players) => {
+        lobbyView.renderPlayers(players);
     });
 
     socket.on('addPlayer', (players) => {
         players.forEach(player => {
             player.pieceCount = 12;
             game.addPlayer(player);
-            if(player.id === socket.id) {
+            if (player.id === socket.id) {
                 youArePlayer = player.player;
             } else {
                 opponentId = player.id;
@@ -62,7 +73,7 @@ window.onload = () => {
         });
         console.log(game.players);
         console.log(youArePlayer);
-        if(youArePlayer === 1) {
+        if (youArePlayer === 1) {
             document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
         }
         document.querySelector('form').hidden = true;
@@ -97,8 +108,8 @@ window.onload = () => {
             game.addMovePosition(clickPosition);
 
             if (game.hasSelectedPieceAndMovePos()) {
-                if (game.board.canCapture ) {
-                    if(game.board.isValidCaptureMove(game.move)) {
+                if (game.board.canCapture) {
+                    if (game.board.isValidCaptureMove(game.move)) {
                         game.board.capturePiece(game.move, game.getOpponent());
                         game.board.clearCaptureAndMovePos();
                         game.board.calcMovePositions(game.activePlayer);
@@ -117,7 +128,7 @@ window.onload = () => {
                     }
                 } else if (game.board.canMove) {
                     console.log(game.board.isValidMove(game.move));
-                    if (game.board.isValidMove(game.move)){
+                    if (game.board.isValidMove(game.move)) {
                         game.board.movePiece(game.move);
                         console.log('active player: ', game.activePlayer);
                         game.switchPlayer();

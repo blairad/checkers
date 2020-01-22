@@ -14,8 +14,8 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-      "start": "node server/server.js",
-      "server:dev": "nodemon server/server.js",
+    "start": "node server/server.js",
+    "server:dev": "nodemon server/server.js",
     "test": "mocha",
     "build": "webpack -w"
   },

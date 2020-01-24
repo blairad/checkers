@@ -8,7 +8,7 @@ const lobbyView = {
         for (player in players) {
             const listItem = document.createElement('button');
             listItem.id = players[player].id;
-            listItem.className = 'join-game';
+            listItem.className = `join-game ${players[player].gameStatus}`;
             listItem.innerHTML = players[player].name;
             playerList.appendChild(listItem)
             playerList.appendChild(document.createElement('br'));

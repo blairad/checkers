@@ -44,14 +44,17 @@ io.on('connection', (socket) => {
     // });
 
     socket.on('joinLobby', (player) =>{
-        // console.log(player);
+        console.log(player);
         players[player.id] = player;
         // console.log(players);
         io.emit('playerList', players)
     });
 
     socket.on('playerReady', playerid =>{
-        io.emit('playerReady', playerid)
+        players[playerid].gameStatus = 'ready';
+        // io.emit('playerReady', playerid)
+
+        io.emit('playerList', players);
 
         games[playerid] = {
             player1: players[playerid]

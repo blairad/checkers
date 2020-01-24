@@ -45,7 +45,8 @@ window.onload = () => {
         const player = {
             name: event.target.name.value,
             // player: +event.target.player.value, 
-            id: socket.id
+            id: socket.id,
+            gameStatus: 'waiting'
         };
         socket.emit('joinLobby', player);
     });
@@ -54,9 +55,11 @@ window.onload = () => {
         socket.emit('playerReady', socket.id)
     });
 
-    socket.on('playerReady', playerid => {
-        document.getElementById(playerid).style.backgroundColor = 'green';
-    });
+    // socket.on('playerReady', playerid => {
+    //     document.getElementById(playerid).classList.remove('waiting');
+    //     document.getElementById(playerid).classList.add('ready');
+
+    // });
 
     // listen to player joining game
     document.getElementById('players').addEventListener('click', event => {

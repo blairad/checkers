@@ -1,7 +1,3 @@
-// importing board to serv to client
-const board = require('../client/src/models/board.js'); 
-board.setupPieces();
-const pieces = board.pieces; 
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -20,72 +16,30 @@ server.listen(port, () => {
 });
 
 io.on('connection', (socket) => {
-    socket.adapter.rooms
-    // console.log('a user connected')
-
-    // socket.on('addPlayer', (player) => {
-    //     if(players.length < 2) {
-    //         if(players.length === 0) {
-    //             player.player = 1;
-    //         } else {
-    //             player.player = 2;
-    //         }
-    //         players.push(player);
-    //         // console.log(player);
-    //         // console.log(players);
-    //     }; 
-    //     if (players.length === 2) {
-    //         players.forEach(player => {
-    //             io.to(player.id).emit('addPlayer', players);
-    //         })
-    //         // console.log('players sent');
-    //         players = [];
-    //     };     
-    // });
-
+    // initial form submition 
     socket.on('joinLobby', (player) =>{
-        console.log(player);
         players[player.id] = player;
-        // console.log(players);
         io.emit('playerList', players)
     });
 
-    socket.on('playerReady', playerid =>{
-        players[playerid].gameStatus = 'ready';
-        // io.emit('playerReady', playerid)
-
+    // change player status and create game obj
+    socket.on('playerReady', playerId =>{
+        players[playerId].gameStatus = 'ready';
+        players[playerId].playerNum = 1;
         io.emit('playerList', players);
-
-        games[playerid] = {
-            player1: players[playerid]
+        games[playerId] = {
+            player1: players[playerId]
         }
-
-        console.log(games);
-
-        // players.forEach(player => {
-        //     if(player.id === playerid){
-        //         games.playerid = {
-        //             player1: player
-        //         }
-        //         console.log('new game', games.playerid)
-        //         // games.push(newGame)
-        //     }
-        // })
     });
 
+    // add player2 to game
     socket.on('pairPlayers', (playerId, gameId) => {
-        console.log('gameId: ', gameId);
-        console.log('playerId: ', playerId);
+        players[playerId].playerNum = 2;
         games[gameId].player2 = players[playerId];
-        console.log(games);
-
     } )
 
-
+    // send pieces on player turn 
     socket.on('pieces', (opponentId, pieces) => {
-        // console.log('pieces sent');
-        // console.log('incoming: ', pieces);
-        // console.log(opponentId);
         socket.broadcast.to(opponentId).emit('pieces', pieces);
     })
 });

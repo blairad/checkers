@@ -44,30 +44,37 @@ io.on('connection', (socket) => {
     // });
 
     socket.on('joinLobby', (player) =>{
-        console.log(player);
-        // const playerId = player.id
-        console.log(player.id)
+        // console.log(player);
         players[player.id] = player;
-        console.log(players);
+        // console.log(players);
         io.emit('playerList', players)
     });
 
     socket.on('playerReady', playerid =>{
         io.emit('playerReady', playerid)
-        players.forEach(player => {
-            if(player.id === playerid){
-                games.playerid = {
-                    player1: player
-                }
-                console.log('new game', games.playerid)
-                // games.push(newGame)
-            }
-        })
+
+        games[playerid] = {
+            player1: players[playerid]
+        }
+
+        console.log(games);
+
+        // players.forEach(player => {
+        //     if(player.id === playerid){
+        //         games.playerid = {
+        //             player1: player
+        //         }
+        //         console.log('new game', games.playerid)
+        //         // games.push(newGame)
+        //     }
+        // })
     });
 
     socket.on('pairPlayers', (playerId, gameId) => {
         console.log('gameId: ', gameId);
         console.log('playerId: ', playerId);
+        games[gameId].player2 = players[playerId];
+        console.log(games);
 
     } )
 

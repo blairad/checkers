@@ -16,6 +16,7 @@ const lobbyView = require('./views/lobbyView.js')
 let youArePlayer = 0;
 let opponentId = 0;
 
+
 window.onload = () => {
     // document.querySelector('form').hidden = true;
     // document.getElementById('game').hidden = true;
@@ -57,6 +58,14 @@ window.onload = () => {
         document.getElementById(playerid).style.backgroundColor = 'green';
     });
 
+    // listen to player joining game
+    document.getElementById('players').addEventListener('click', event => {
+        // console.log(event.target.id);
+        const playerId = socket.id;
+        const gameId = event.target.id;
+        socket.emit('pairPlayers', playerId, gameId);
+    })
+
     socket.on('playerList', (players) => {
         lobbyView.renderPlayers(players);
     });
@@ -71,8 +80,8 @@ window.onload = () => {
                 opponentId = player.id;
             }
         });
-        console.log(game.players);
-        console.log(youArePlayer);
+        // console.log(game.players);
+        // console.log(youArePlayer);
         if (youArePlayer === 1) {
             document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
         }

@@ -4,13 +4,15 @@ const lobbyView = {
         const playerList = document.getElementById('players')
         playerList.innerHTML = '';
         console.log(lobby)
-        players.forEach(player => {
+        console.log(players);
+        for (player in players) {
             const listItem = document.createElement('button');
-            listItem.id = player.id;
-            listItem.innerHTML = player.name;
+            listItem.id = players[player].id;
+            listItem.className = 'join-game';
+            listItem.innerHTML = players[player].name;
             playerList.appendChild(listItem)
             playerList.appendChild(document.createElement('br'));
-        })
+        }
     }
 }
 

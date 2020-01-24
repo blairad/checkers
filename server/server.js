@@ -11,11 +11,9 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, '../client/public')));
 
-let players = [];
+let players = {};
 
-let games = {
-
-};
+let games = {};
 
 server.listen(port, () => {
     console.log(`listening on port ${port}`)
@@ -47,7 +45,9 @@ io.on('connection', (socket) => {
 
     socket.on('joinLobby', (player) =>{
         console.log(player);
-        players.push(player);
+        // const playerId = player.id
+        console.log(player.id)
+        players[player.id] = player;
         console.log(players);
         io.emit('playerList', players)
     });
@@ -65,7 +65,9 @@ io.on('connection', (socket) => {
         })
     });
 
-    socket.on('pairPlayers', (gameid, playerid) => {
+    socket.on('pairPlayers', (playerId, gameId) => {
+        console.log('gameId: ', gameId);
+        console.log('playerId: ', playerId);
 
     } )
 

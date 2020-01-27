@@ -60,3 +60,6 @@ body{
 .ready {
     background-color: green;
 }
+.in-game {
+    background-color: orange;
+}

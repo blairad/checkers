@@ -55,7 +55,8 @@ window.onload = () => {
         }
         document.querySelector('form').hidden = true;
         document.getElementById('lobby').hidden = true;
-        document.getElementById('game-container').hidden = false;
+        // this looks smelly! try to figure something out
+        document.getElementById('game-container').style.display = "flex";
     })
 
     // initial setup of game

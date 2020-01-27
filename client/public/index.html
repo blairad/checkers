@@ -9,25 +9,38 @@
     <script src="js/bundle.js"></script>
 </head>
 <body>
-    <form action="submit"> 
+    <form action="submit" hidden> 
         <input id="name" type="text" placeholder="User Name">
         <!-- <input id="player" type="number" min="1" max="2"> -->
         <input type="submit" value="Submit">
     </form>
-    <div id="lobby">
+    <div id="lobby" hidden>
         <h1>Hello world</h1>
         <button id="player-ready">Play</button>
         <ul id="players"></ul>
     </div>
-    <div id="game-container" hidden>
+    <div id="game-container">
         <div id="board">
             <div id="board-container"></div>
             <div id="pieces-container"></div>
         </div>
-        <div id="chat-gui">
-            <div id="active-player"></div>
-            <button id="new-game">New Game</button>
-            <button id="exit-game">Exit Game</button>
+        <div id="interface">
+        <div id="chat">
+            <ul id="messages">
+                <li>hi i'm a message</li>
+            </ul>
+            <form id="chat-form" action="submit">
+                <input id="message" type="text">
+                <input type="submit" value="Send">
+            </form>
+        </div>
+            <div id="options">
+                <div id="active-player"></div>
+                <div id="game-options">
+                    <button id="new-game">New Game</button>
+                    <button id="exit-game">Exit Game</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

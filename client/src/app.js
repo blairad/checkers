@@ -40,34 +40,25 @@ window.onload = () => {
     })
 
     // GAME
-    // TODO
-    // NEEDS REFACTORING TO COPE WITH 'PLAYERS' NOW BEING AN OBJECT
     // assigning opponent / rotating board / showing game
     socket.on('game', (readyGame) => {
-        console.log(readyGame)
-        
-
         readyGame.forEach(player => {
             game.addPlayer(player);
             if (player.id === socket.id) {
                 youArePlayer = player.playerNum;
-
             } else {
                 opponentId = player.id;
             }
         });
-        console.log(opponentId);
-        console.log(youArePlayer);
         if (youArePlayer === 1) {
             document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
         }
         document.querySelector('form').hidden = true;
         document.getElementById('lobby').hidden = true;
         document.getElementById('game').hidden = false;
-
     })
 
-
+    // initial setup of game
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
     gameView.renderBoard(game.board.board);
@@ -86,7 +77,7 @@ window.onload = () => {
         gameView.renderActivePlayer(game.activePlayer);
     };
 
-    // recieves pieces from opponent turn 
+    // receives pieces from opponent turn 
     socket.on('pieces', (pieces) => {
         game.board.pieces = pieces;
         gameView.renderPieces(game.board.pieces);
@@ -104,10 +95,7 @@ window.onload = () => {
 
         // can only make move if player has selected own piece
         if (playerSelectedPieceNum === youArePlayer || playerSelectedPieceNum === 0) {
-            console.log('youre in!');
-
             game.addMovePosition(clickPosition);
-
             if (game.hasSelectedPieceAndMovePos()) {
                 if (game.board.canCapture) {
                     if (game.board.isValidCaptureMove(game.move)) {
@@ -120,8 +108,6 @@ window.onload = () => {
                             game.board.clearCaptureAndMovePos();
                             game.board.calcMovePositions(game.activePlayer);
                             game.board.calcCapturePositions(game.activePlayer, game.opponent);
-                            gameView.renderActivePlayer(game.activePlayer);
-                            gameView.renderPieces(game.board.pieces);
                         }
                         gameView.renderActivePlayer(game.activePlayer);
                         gameView.renderPieces(game.board.pieces);
@@ -141,14 +127,5 @@ window.onload = () => {
                 }
             }
         }
-        console.log('piece count: ', game.getActivePlayer().pieceCount);
-        console.log(`player ${game.checkForWinner()} is the winner!`);
-        // console.log(game.board.canCapture);
-        console.log(game.move);
-        // console.table(game.board.pieces); });
     });
-
-    function clearAndCalculate() {
-
-    }
 };

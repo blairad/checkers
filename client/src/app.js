@@ -67,7 +67,7 @@ window.onload = () => {
 
     // resets board for new game
     document.getElementById('new-game').onclick = () => {
-        game.board.clearCapturePos();
+        game.board.clearCaptureAndMovePos();
         game.board.setupPieces();
         game.activePlayer = 1;
         game.opponent = 2;

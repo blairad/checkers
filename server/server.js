@@ -46,7 +46,10 @@ io.on('connection', (socket) => {
         assignPlayerNums(games[gameId])
         console.log(games)
         io.emit('playerList', players)
-        socket.emit('game', games[gameId])
+        // io.emit('game', games[gameId])
+        games[gameId].forEach(player => {
+            io.to(player.id).emit('game', games[gameId]);
+        })
     })
 
     // send pieces on player turn 
@@ -68,6 +71,7 @@ io.on('connection', (socket) => {
 
         for (let i = 0; i < game.length; i++) {
             game[i].playerNum = randomNums[i];
+            game[i].pieceCount = 12;
         }
     }
 

@@ -43,28 +43,31 @@ window.onload = () => {
     // TODO
     // NEEDS REFACTORING TO COPE WITH 'PLAYERS' NOW BEING AN OBJECT
     // assigning opponent / rotating board / showing game
-    socket.on('game', (game) => {
-        console.log(game)
+    socket.on('game', (readyGame) => {
+        console.log(readyGame)
+        
 
-        // players.forEach(player => {
-        //     player.pieceCount = 12;
-        //     game.addPlayer(player);
-        //     if (player.id === socket.id) {
-        //         youArePlayer = player.player;
-        //     } else {
-        //         opponentId = player.id;
-        //     }
-        // });
-        // // console.log(game.players);
-        // // console.log(youArePlayer);
-        // if (youArePlayer === 1) {
-        //     document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
-        // }
-        // document.querySelector('form').hidden = true;
-        // document.getElementById('game').hidden = false;
+        readyGame.forEach(player => {
+            game.addPlayer(player);
+            if (player.id === socket.id) {
+                youArePlayer = player.playerNum;
+
+            } else {
+                opponentId = player.id;
+            }
+        });
+        console.log(opponentId);
+        console.log(youArePlayer);
+        if (youArePlayer === 1) {
+            document.querySelector('#pieces-container').style.transform = 'rotate(180deg)';
+        }
+        document.querySelector('form').hidden = true;
+        document.getElementById('lobby').hidden = true;
+        document.getElementById('game').hidden = false;
+
     })
 
-   
+
     game.board.setupPieces();
     game.board.calcMovePositions(game.activePlayer);
     gameView.renderBoard(game.board.board);

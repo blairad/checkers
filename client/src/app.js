@@ -55,7 +55,7 @@ window.onload = () => {
         }
         document.querySelector('form').hidden = true;
         document.getElementById('lobby').hidden = true;
-        document.getElementById('game').hidden = false;
+        document.getElementById('game-container').hidden = false;
     })
 
     // initial setup of game

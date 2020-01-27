@@ -25,21 +25,27 @@ io.on('connection', (socket) => {
     // change player status and create game obj
     socket.on('playerReady', playerId =>{
         players[playerId].gameStatus = 'ready';
-        players[playerId].playerNum = 1;
+        players[playerId].playerNum = Math.floor(Math.random() * (3 - 1) + 1);
         io.emit('playerList', players);
         games[playerId] = {
             player1: players[playerId]
         }
+        console.log(players)
     });
 
     // add player2 to game
     socket.on('pairPlayers', (playerId, gameId) => {
-        players[playerId].playerNum = 2;
         games[gameId].player2 = players[playerId];
+        players[playerId].playerNum = () => {
+            return games[gameId][gameId].playerNum === 1 ? 2 : 1;
+        };
+        socket.emit('game', games[gameId] )
     } )
 
     // send pieces on player turn 
     socket.on('pieces', (opponentId, pieces) => {
         socket.broadcast.to(opponentId).emit('pieces', pieces);
     })
+    
+
 });

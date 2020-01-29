@@ -15,7 +15,7 @@ Usage
 
 To start the server:  
 ```bash
-npm run server:dev
+npm start 
 ```
 
 Once the server is running and listening on port 3000 you can then head to your

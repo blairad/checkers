@@ -1,56 +1,69 @@
 :root{
-   --boardSize: 700px;
+   --width: 970px;
+   --height: calc(var(--width) / 1.618);
 }
 
 body{
-    position: absolute;
-    display: row;
-    height: 100%;
-    width: 100%;
+    /* height: 100%; */
+    /* width: 100%; */
     margin: auto 0;
+    box-sizing: border-box;
 }
 
 #game-container {
-    display: flex;
-    height: var(--boardSize);
+    width: var(--width);
+    height: var(--height);
+    display: grid;
+    /* width: 900px; */
+    /* height: var(--boardSize); */
+    grid-template-columns: 61.8% 38.2%;
+    grid-template-rows: 10% 90%;
+    grid-template-areas: 
+        "A B"
+        "A C";
 }
 
 #board-container{
-    width: var(--boardSize);
-    height: var(--boardSize);
-    border: 2px solid black;
+    grid-area: A;
+    /* border: 2px solid black; */
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
 }
 
 #pieces-container{
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: var(--boardSize);
-    height: var(--boardSize);
+    /* position: absolute; */
+    /* top: 2px; */
+    /* left: 2px; */
+    grid-area: A;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
 }
 
-#interface {
+#chat {
     position: relative;
+    grid-area: C;
 }
 
-#chat-gui {
-}
-
-#messages {
-    height: auto;
+#chat-form {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 #options {
+    /* display: flex; */
+    grid-area: B;
+}
+
+#game-options {
+    height: 80%;
     display: flex;
-    width: auto;
-    position: absolute;
-    bottom: 0;
+}
+
+#game-options div {
+    width: 50%;
 }
 
 .piece {
@@ -77,8 +90,23 @@ body{
 }
 
 #active-player{
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 20%;
+}
+
+#new-game {
+    background-color: blue;
+}
+
+#exit-game {
+    background-color: purple;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
 .ready {
@@ -87,3 +115,4 @@ body{
 .in-game {
     background-color: orange;
 }
+

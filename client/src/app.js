@@ -56,7 +56,7 @@ window.onload = () => {
         document.querySelector('form').hidden = true;
         document.getElementById('lobby').hidden = true;
         // this looks smelly! try to figure something out
-        document.getElementById('game-container').style.display = "flex";
+        document.getElementById('game-container').style.display = "grid";
     })
 
     // initial setup of game
@@ -129,4 +129,30 @@ window.onload = () => {
             }
         }
     });
+    
+    // chat
+    // this is ugly 
+    document.querySelector('#chat-form').addEventListener('submit', event => {
+        event.preventDefault();
+        let message = document.getElementById('message').value;
+
+        const newMessage = document.createElement('li');
+        newMessage.textContent = `me: ${message}`;
+        document.getElementById('messages').appendChild(newMessage);
+
+        game.players.forEach(player => {
+            if (player.id === socket.id) {
+                message = `${player.name}: ${message}`;
+            }
+        });
+
+        socket.emit('chat', opponentId, message);
+    });
+
+    socket.on('chat', (message) => {
+        const newMessage = document.createElement('li');
+        newMessage.textContent = message;
+        document.getElementById('messages').appendChild(newMessage);
+    })
+     
 };

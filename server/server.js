@@ -46,6 +46,13 @@ io.on('connection', (socket) => {
         socket.broadcast.to(opponentId).emit('pieces', pieces);
     })
 
+    // chat socket
+    socket.on('chat', (opponentId, message) => {
+        console.log(message);
+        // io.emit('chat', message);
+        socket.broadcast.to(opponentId).emit('chat', message);
+    })
+
     function createNewGame(playerId) {
         games[playerId] = [
             players[playerId]

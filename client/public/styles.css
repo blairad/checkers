@@ -13,7 +13,7 @@ body{
 #game-container {
     width: var(--width);
     height: var(--height);
-    display: grid;
+    /* display: grid; */
     /* width: 900px; */
     /* height: var(--boardSize); */
     grid-template-columns: 61.8% 38.2%;
@@ -50,6 +50,14 @@ body{
     width: 100%;
     position: absolute;
     bottom: 0;
+}
+
+#messages {
+    list-style-type: none;
+}
+
+#messages li:nth-child(odd) {
+    background: #eee;
 }
 
 #options {
